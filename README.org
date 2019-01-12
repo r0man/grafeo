@@ -5,8 +5,8 @@
 
   [[https://clojars.org/grafeo][https://img.shields.io/clojars/v/grafeo.svg]]
   [[https://travis-ci.org/r0man/grafeo][https://travis-ci.org/r0man/grafeo.svg]]
-  [[http://jarkeeper.com/r0man/grafeo][http://jarkeeper.com/r0man/grafeo/status.svg]]
-  [[http://jarkeeper.com/r0man/grafeo][https://jarkeeper.com/r0man/grafeo/downloads.svg]]
+  [[https://versions.deps.co/r0man/grafeo][https://versions.deps.co/r0man/grafeo/status.svg]]
+  [[https://versions.deps.co/r0man/grafeo][https://versions.deps.co/r0man/grafeo/downloads.svg]]
 
   /Grafeo/ is [[https://clojure.org][Clojure]] and [[https://github.com/clojure/clojurescript][ClojureScript]] library that provides a
   S-expression based language for [[https://graphql.org/][GraphQL]] documents and schemas.
