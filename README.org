@@ -20,7 +20,9 @@
      (require '[grafeo.core :as gql])
    #+END_SRC
 
-   Define a GraphQL document in s-expression format.
+   Define a GraphQL document in s-expression format. Take a look at
+   the [[https://github.com/r0man/grafeo/tree/master/doc][doc]] folder to learn how to write GraphQL documents and schemas
+   in S-expression format.
 
    #+BEGIN_SRC clojure :exports code :results silent
      (def my-document
