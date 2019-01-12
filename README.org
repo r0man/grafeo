@@ -1,0 +1,163 @@
+* Grafeo
+
+  #+author: r0man
+  #+LANGUAGE: en
+
+  [[https://clojars.org/grafeo][https://img.shields.io/clojars/v/grafeo.svg]]
+  [[https://travis-ci.org/r0man/grafeo][https://travis-ci.org/r0man/grafeo.svg]]
+  [[http://jarkeeper.com/r0man/grafeo][http://jarkeeper.com/r0man/grafeo/status.svg]]
+  [[http://jarkeeper.com/r0man/grafeo][https://jarkeeper.com/r0man/grafeo/downloads.svg]]
+
+  /Grafeo/ is [[https://clojure.org][Clojure]] and [[https://github.com/clojure/clojurescript][ClojureScript]] library that provides a
+  S-expression based language for [[https://graphql.org/][GraphQL]] documents and schemas.
+
+** Usage
+
+   Require the library.
+
+   #+BEGIN_SRC clojure :exports code :results silent
+     (require '[clojure.pprint :refer [pprint]])
+     (require '[grafeo.core :as gql])
+   #+END_SRC
+
+   Define a GraphQL document in s-expression format.
+
+   #+BEGIN_SRC clojure :exports code :results silent
+     (def my-document
+       '((human
+          [(id "1000")]
+          name
+          (height [(unit FOOT)]))))
+   #+END_SRC
+
+   Pretty print the GraphQL document.
+
+   #+BEGIN_SRC clojure :exports both :results output
+     (gql/pprint my-document)
+   #+END_SRC
+
+   #+RESULTS:
+   : query {
+   :   human(id: "1000") {
+   :     name
+   :     height(unit: FOOT)
+   :   }
+   : }
+
+   Parse the GraphQL document and print the [[https://github.com/alumbra][Alumbra]] AST.
+
+   #+BEGIN_SRC clojure :exports both :results output
+     (binding [*print-namespace-maps* false]
+       (pprint (gql/parse-document my-document)))
+   #+END_SRC
+
+   #+RESULTS:
+   #+begin_example
+   {:alumbra/metadata {:column 0, :row 0},
+    :alumbra/operations
+    [{:alumbra/metadata {:column 0, :row 0},
+      :alumbra/operation-type "query",
+      :alumbra/selection-set
+      [{:alumbra/field-name "human",
+        :alumbra/metadata {:column 0, :row 0},
+        :alumbra/arguments
+        [{:alumbra/argument-name "id",
+          :alumbra/argument-value
+          {:alumbra/metadata {:column 0, :row 0},
+           :alumbra/string "1000",
+           :alumbra/value-type :string},
+          :alumbra/metadata {:column 0, :row 0}}],
+        :alumbra/selection-set
+        [{:alumbra/field-name "name",
+          :alumbra/metadata {:column 0, :row 0}}
+         {:alumbra/field-name "height",
+          :alumbra/metadata {:column 0, :row 0},
+          :alumbra/arguments
+          [{:alumbra/argument-name "unit",
+            :alumbra/argument-value
+            {:alumbra/enum "FOOT",
+             :alumbra/metadata {:column 0, :row 0},
+             :alumbra/value-type :enum},
+            :alumbra/metadata {:column 0, :row 0}}]}]}]}]}
+   #+end_example
+
+   Parse the GraphQL document and print the JavaScript AST that .
+
+   #+BEGIN_SRC clojure :exports both :results output
+     (pprint (gql/parse-document-js my-document))
+   #+END_SRC
+
+   #+RESULTS:
+   #+begin_example
+   {:definitions
+    [{:directives [],
+      :kind "OperationDefinition",
+      :loc {:startToken {:column 0, :line 0, :start nil}},
+      :name nil,
+      :operation "query",
+      :selectionSet
+      {:kind "SelectionSet",
+       :selections
+       [{:alias nil,
+         :arguments
+         [{:kind "Argument",
+           :loc {:startToken {:column 0, :line 0, :start nil}},
+           :name
+           {:kind "Name",
+            :loc {:startToken {:column 0, :line 0, :start nil}},
+            :value "id"},
+           :value
+           {:block false,
+            :kind "StringValue",
+            :loc {:startToken {:column 0, :line 0, :start nil}},
+            :value "1000"}}],
+         :directives [],
+         :kind "Field",
+         :loc {:startToken {:column 0, :line 0, :start nil}},
+         :name
+         {:kind "Name",
+          :loc {:startToken {:column 0, :line 0, :start nil}},
+          :value "human"},
+         :selectionSet
+         {:kind "SelectionSet",
+          :selections
+          [{:alias nil,
+            :arguments [],
+            :directives [],
+            :kind "Field",
+            :loc {:startToken {:column 0, :line 0, :start nil}},
+            :name
+            {:kind "Name",
+             :loc {:startToken {:column 0, :line 0, :start nil}},
+             :value "name"},
+            :selectionSet nil}
+           {:alias nil,
+            :arguments
+            [{:kind "Argument",
+              :loc {:startToken {:column 0, :line 0, :start nil}},
+              :name
+              {:kind "Name",
+               :loc {:startToken {:column 0, :line 0, :start nil}},
+               :value "unit"},
+              :value
+              {:kind "EnumValue",
+               :loc {:startToken {:column 0, :line 0, :start nil}},
+               :value "FOOT"}}],
+            :directives [],
+            :kind "Field",
+            :loc {:startToken {:column 0, :line 0, :start nil}},
+            :name
+            {:kind "Name",
+             :loc {:startToken {:column 0, :line 0, :start nil}},
+             :value "height"},
+            :selectionSet nil}]}}]},
+      :variableDefinitions []}],
+    :kind "Document",
+    :loc {:startToken {:column 0, :line 0, :start nil}}}
+   #+end_example
+
+** License
+
+   Copyright © 2019 [[https://github.com/r0man][r0man]]
+
+   Distributed under the Eclipse Public License, the same as Clojure.
