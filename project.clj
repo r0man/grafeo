@@ -1,4 +1,4 @@
-(defproject grafeo "0.1.0"
+(defproject grafeo "0.1.1-SNAPSHOT"
   :description "A GraphQL document and schema language based on S-expressions."
   :url "https://github.com/r0man/grafeo"
   :license {:name "Eclipse Public License"
