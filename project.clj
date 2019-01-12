@@ -3,6 +3,7 @@
   :url "https://github.com/r0man/grafeo"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :deploy-repositories [["releases" :clojars]]
   :dependencies [[cheshire "5.8.1"]
                  [clj-http "3.9.1"]
                  [org.clojure/clojure "1.10.0"]
