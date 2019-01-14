@@ -32,131 +32,208 @@
           (height [(unit FOOT)]))))
    #+END_SRC
 
-   Pretty print the GraphQL document.
+*** Pretty printing
 
-   #+BEGIN_SRC clojure :exports both :results output
+    Pretty print the GraphQL document.
+
+    #+BEGIN_SRC clojure :exports both :results output
      (gql/pprint my-document)
-   #+END_SRC
+    #+END_SRC
 
-   #+RESULTS:
-   : query {
-   :   human(id: "1000") {
-   :     name
-   :     height(unit: FOOT)
-   :   }
-   : }
+    #+RESULTS:
+    : query {
+    :   human(id: "1000") {
+    :     name
+    :     height(unit: FOOT)
+    :   }
+    : }
 
-   Parse the GraphQL document and print the [[https://github.com/alumbra][Alumbra]] AST.
+*** Alumbra
 
-   #+BEGIN_SRC clojure :exports both :results output
+    [[https://github.com/alumbra][Alumbra]] is a very complete GraphQL library for Clojure. It
+    provides an [[https://github.com/alumbra/alumbra.analyzer][analyzer]], a [[https://github.com/alumbra/alumbra.parser][parser]] and Clojure [[https://clojure.org/guides/spec][Specs]] around
+    GraphQL. When parsing a /Grafeo/ GraphQL document in S-expressions
+    format it is converted into Alumbra's AST format.
+
+    The following example parses the GraphQL document and prints the
+    [[https://github.com/alumbra][Alumbra]] AST.
+
+    #+BEGIN_SRC clojure :exports both :results output
      (binding [*print-namespace-maps* false]
        (pprint (gql/parse-document my-document)))
-   #+END_SRC
+    #+END_SRC
 
-   #+RESULTS:
-   #+begin_example
-   {:alumbra/metadata {:column 0, :row 0},
-    :alumbra/operations
-    [{:alumbra/metadata {:column 0, :row 0},
-      :alumbra/operation-type "query",
-      :alumbra/selection-set
-      [{:alumbra/field-name "human",
-        :alumbra/metadata {:column 0, :row 0},
-        :alumbra/arguments
-        [{:alumbra/argument-name "id",
-          :alumbra/argument-value
-          {:alumbra/metadata {:column 0, :row 0},
-           :alumbra/string "1000",
-           :alumbra/value-type :string},
-          :alumbra/metadata {:column 0, :row 0}}],
-        :alumbra/selection-set
-        [{:alumbra/field-name "name",
-          :alumbra/metadata {:column 0, :row 0}}
-         {:alumbra/field-name "height",
-          :alumbra/metadata {:column 0, :row 0},
-          :alumbra/arguments
-          [{:alumbra/argument-name "unit",
-            :alumbra/argument-value
-            {:alumbra/enum "FOOT",
-             :alumbra/metadata {:column 0, :row 0},
-             :alumbra/value-type :enum},
-            :alumbra/metadata {:column 0, :row 0}}]}]}]}]}
-   #+end_example
+    #+RESULTS:
+    #+begin_example
+    {:alumbra/metadata {:column 0, :row 0},
+     :alumbra/operations
+     [{:alumbra/metadata {:column 0, :row 0},
+       :alumbra/operation-type "query",
+       :alumbra/selection-set
+       [{:alumbra/field-name "human",
+         :alumbra/metadata {:column 0, :row 0},
+         :alumbra/arguments
+         [{:alumbra/argument-name "id",
+           :alumbra/argument-value
+           {:alumbra/metadata {:column 0, :row 0},
+            :alumbra/string "1000",
+            :alumbra/value-type :string},
+           :alumbra/metadata {:column 0, :row 0}}],
+         :alumbra/selection-set
+         [{:alumbra/field-name "name",
+           :alumbra/metadata {:column 0, :row 0}}
+          {:alumbra/field-name "height",
+           :alumbra/metadata {:column 0, :row 0},
+           :alumbra/arguments
+           [{:alumbra/argument-name "unit",
+             :alumbra/argument-value
+             {:alumbra/enum "FOOT",
+              :alumbra/metadata {:column 0, :row 0},
+              :alumbra/value-type :enum},
+             :alumbra/metadata {:column 0, :row 0}}]}]}]}]}
+    #+end_example
 
-   Parse the GraphQL document and print the JavaScript AST that .
+*** JavaScript
 
-   #+BEGIN_SRC clojure :exports both :results output
+    In the JavaScript world, GraphQL clients like [[https://www.apollographql.com/docs/react/][Apollo]] and [[https://facebook.github.io/relay/][Relay]] use
+    a different AST format. /Grafeo/ can translate between the Alumbra
+    and JavaScript formats.
+
+    The following example parses the GraphQL document and prints the
+    JavaScript AST.
+
+    #+BEGIN_SRC clojure :exports both :results output
      (pprint (gql/parse-document-js my-document))
-   #+END_SRC
+    #+END_SRC
 
-   #+RESULTS:
-   #+begin_example
-   {:definitions
-    [{:directives [],
-      :kind "OperationDefinition",
-      :loc {:startToken {:column 0, :line 0, :start nil}},
-      :name nil,
-      :operation "query",
-      :selectionSet
-      {:kind "SelectionSet",
-       :selections
-       [{:alias nil,
-         :arguments
-         [{:kind "Argument",
-           :loc {:startToken {:column 0, :line 0, :start nil}},
-           :name
-           {:kind "Name",
+    #+RESULTS:
+    #+begin_example
+    {:definitions
+     [{:directives [],
+       :kind "OperationDefinition",
+       :loc {:startToken {:column 0, :line 0, :start nil}},
+       :name nil,
+       :operation "query",
+       :selectionSet
+       {:kind "SelectionSet",
+        :selections
+        [{:alias nil,
+          :arguments
+          [{:kind "Argument",
             :loc {:startToken {:column 0, :line 0, :start nil}},
-            :value "id"},
-           :value
-           {:block false,
-            :kind "StringValue",
-            :loc {:startToken {:column 0, :line 0, :start nil}},
-            :value "1000"}}],
-         :directives [],
-         :kind "Field",
-         :loc {:startToken {:column 0, :line 0, :start nil}},
-         :name
-         {:kind "Name",
+            :name
+            {:kind "Name",
+             :loc {:startToken {:column 0, :line 0, :start nil}},
+             :value "id"},
+            :value
+            {:block false,
+             :kind "StringValue",
+             :loc {:startToken {:column 0, :line 0, :start nil}},
+             :value "1000"}}],
+          :directives [],
+          :kind "Field",
           :loc {:startToken {:column 0, :line 0, :start nil}},
-          :value "human"},
-         :selectionSet
-         {:kind "SelectionSet",
-          :selections
-          [{:alias nil,
-            :arguments [],
-            :directives [],
-            :kind "Field",
-            :loc {:startToken {:column 0, :line 0, :start nil}},
-            :name
-            {:kind "Name",
+          :name
+          {:kind "Name",
+           :loc {:startToken {:column 0, :line 0, :start nil}},
+           :value "human"},
+          :selectionSet
+          {:kind "SelectionSet",
+           :selections
+           [{:alias nil,
+             :arguments [],
+             :directives [],
+             :kind "Field",
              :loc {:startToken {:column 0, :line 0, :start nil}},
-             :value "name"},
-            :selectionSet nil}
-           {:alias nil,
-            :arguments
-            [{:kind "Argument",
+             :name
+             {:kind "Name",
               :loc {:startToken {:column 0, :line 0, :start nil}},
-              :name
-              {:kind "Name",
+              :value "name"},
+             :selectionSet nil}
+            {:alias nil,
+             :arguments
+             [{:kind "Argument",
                :loc {:startToken {:column 0, :line 0, :start nil}},
-               :value "unit"},
-              :value
-              {:kind "EnumValue",
-               :loc {:startToken {:column 0, :line 0, :start nil}},
-               :value "FOOT"}}],
-            :directives [],
-            :kind "Field",
-            :loc {:startToken {:column 0, :line 0, :start nil}},
-            :name
-            {:kind "Name",
+               :name
+               {:kind "Name",
+                :loc {:startToken {:column 0, :line 0, :start nil}},
+                :value "unit"},
+               :value
+               {:kind "EnumValue",
+                :loc {:startToken {:column 0, :line 0, :start nil}},
+                :value "FOOT"}}],
+             :directives [],
+             :kind "Field",
              :loc {:startToken {:column 0, :line 0, :start nil}},
-             :value "height"},
-            :selectionSet nil}]}}]},
-      :variableDefinitions []}],
-    :kind "Document",
-    :loc {:startToken {:column 0, :line 0, :start nil}}}
-   #+end_example
+             :name
+             {:kind "Name",
+              :loc {:startToken {:column 0, :line 0, :start nil}},
+              :value "height"},
+             :selectionSet nil}]}}]},
+       :variableDefinitions []}],
+     :kind "Document",
+     :loc {:startToken {:column 0, :line 0, :start nil}}}
+    #+end_example
+
+*** HTTP Client
+
+    /Grafeo/ provides a [[https://github.com/dakrone/clj-http][clj-http]] based HTTP client for GraphQL. The
+    following example show how to query a GraphQL based server. Start
+    the SWAPI server in this repository on
+    [[http://localhost:4000/graphql][http://localhost:4000/graphql]].
+
+    #+BEGIN_SRC clojure :exports both :results silent
+      node server.js
+    #+END_SRC
+
+    Require the HTTP client.
+
+    #+BEGIN_SRC clojure :exports both :results silent
+      (require '[grafeo.http :as http])
+    #+END_SRC
+
+    Define the server we are talking to.
+
+    #+BEGIN_SRC clojure :exports both :results silent
+      (def my-server
+        {:scheme :http
+         :server-name "localhost"
+         :server-port 4000})
+    #+END_SRC
+
+    Query the local Star Wars API server and print the result.
+
+    #+BEGIN_SRC clojure :exports both :results output
+      (->> (http/request my-server my-document) :body pprint)
+    #+END_SRC
+
+    #+RESULTS:
+    : {:data {:human {:name "Luke Skywalker", :height 5.6430448}}}
+
+    With variables.
+
+    #+BEGIN_SRC clojure :exports both :results output
+      (->> (http/request
+            my-server
+            '((query
+               HeroNameAndFriends
+               [($episode Episode)]
+               (hero
+                [(episode $episode)]
+                name
+                (friends name))))
+            {:variables {:episode "JEDI"}})
+           :body pprint)
+    #+END_SRC
+
+    #+RESULTS:
+    : {:data
+    :  {:hero
+    :   {:name "R2-D2",
+    :    :friends
+    :    [{:name "Luke Skywalker"}
+    :     {:name "Han Solo"}
+    :     {:name "Leia Organa"}]}}}
 
 ** License
 
