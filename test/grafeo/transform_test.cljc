@@ -120,11 +120,11 @@
   (is (= (parse-form
           '((query
              Countries
+             [($min-spots Int)]
              (countries
+              [(min_spots $min_spots)]
               name
-              iso-3166-1-alpha-2)))
-          {:naming-strategies
-           {:alumbra/field-name util/underscore}})
+              iso-3166-1-alpha-2))))
          {:alumbra/metadata {:column 0 :row 0}
           :alumbra/operations
           [{:alumbra/metadata {:column 0 :row 0}
@@ -133,11 +133,26 @@
             :alumbra/selection-set
             [{:alumbra/field-name "countries"
               :alumbra/metadata {:column 0 :row 0}
+              :alumbra/arguments
+              [{:alumbra/argument-name "min_spots"
+                :alumbra/argument-value
+                {:alumbra/metadata {:column 0 :row 0}
+                 :alumbra/value-type :variable
+                 :alumbra/variable-name "min_spots"}
+                :alumbra/metadata {:column 0 :row 0}}]
               :alumbra/selection-set
               [{:alumbra/field-name "name"
                 :alumbra/metadata {:column 0 :row 0}}
                {:alumbra/field-name "iso_3166_1_alpha_2"
-                :alumbra/metadata {:column 0 :row 0}}]}]}]})))
+                :alumbra/metadata {:column 0 :row 0}}]}]
+            :alumbra/variables
+            [{:alumbra/metadata {:column 0 :row 0}
+              :alumbra/type
+              {:alumbra/metadata {:column 0 :row 0}
+               :alumbra/non-null? false
+               :alumbra/type-class :named-type
+               :alumbra/type-name "Int"}
+              :alumbra/variable-name "min_spots"}]}]})))
 
 (deftest test-valid-document
   (doseq [{:keys [form name]} (examples/all)]
