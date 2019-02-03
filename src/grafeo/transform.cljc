@@ -309,7 +309,8 @@
   [{:keys [default-value type variable-name]}]
   (cond-> {:alumbra/metadata default-metadata
            :alumbra/type (transform type)
-           :alumbra/variable-name (util/strip-variable variable-name)}
+           :alumbra/variable-name (rename :alumbra/variable-name
+                                          (util/strip-variable variable-name))}
     default-value
     (assoc :alumbra/default-value (transform default-value))))
 
