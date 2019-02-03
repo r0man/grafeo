@@ -297,20 +297,25 @@
     union-types
     (assoc :alumbra/union-types (mapv make-type-name union-types))))
 
+(defn- parse-variable
+  "Parse the `variable`."
+  [variable]
+  (->> (util/strip-variable variable)
+       (rename :alumbra/variable-name)))
+
 (defn- make-variable-value
   "Returns the Alumbra AST for a GraphQL variable value."
   [variable-name]
   {:alumbra/metadata default-metadata
    :alumbra/value-type :variable
-   :alumbra/variable-name (util/strip-variable variable-name)})
+   :alumbra/variable-name (parse-variable variable-name)})
 
 (defn- make-variable
   "Returns the Alumbra AST for a GraphQL variable."
   [{:keys [default-value type variable-name]}]
   (cond-> {:alumbra/metadata default-metadata
            :alumbra/type (transform type)
-           :alumbra/variable-name (rename :alumbra/variable-name
-                                          (util/strip-variable variable-name))}
+           :alumbra/variable-name (parse-variable variable-name)}
     default-value
     (assoc :alumbra/default-value (transform default-value))))
 

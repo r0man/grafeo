@@ -122,7 +122,7 @@
              Countries
              [($min-spots Int)]
              (countries
-              [(min_spots $min_spots)]
+              [(min-spots $min-spots)]
               name
               iso-3166-1-alpha-2))))
          {:alumbra/metadata {:column 0 :row 0}
