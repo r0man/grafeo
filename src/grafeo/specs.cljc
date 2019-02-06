@@ -15,7 +15,7 @@
     (keyword? x)
     (keyword (name x))
     (symbol? x)
-    (symbol (name x))
+    (symbol (util/simple-class-name (name x)))
     (string? x) x
     :else ::s/invalid))
 
@@ -458,7 +458,7 @@
 ;; Variables - https://facebook.github.io/graphql/June2018/#sec-Language.Variables
 
 (s/def :grafeo/variable
-  (s/with-gen (s/and symbol? variable-name?)
+  (s/with-gen (s/and symbol? variable-name? name-conformer)
     #(gen/fmap (fn [k] (symbol (str "$" (name k)))) (s/gen :grafeo/symbol))))
 
 (s/def :grafeo/variable-definition

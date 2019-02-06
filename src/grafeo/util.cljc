@@ -4,6 +4,12 @@
             [clojure.string :as str]
             [clojure.walk :as walk]))
 
+(defn simple-class-name
+  "Given an symbol of a class, returns it's simple name. Leaves the
+  fragment spread '... as is."
+  [sym]
+  (str/replace (str sym) #"([^.].*\.)" ""))
+
 (defn conform!
   "Conform `x` against `spec`, or raise an exception."
   [spec x]
