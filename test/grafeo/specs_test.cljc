@@ -28,6 +28,22 @@
               ((on Starship)
                name))))))))
 
+(deftest test-backquote-class-symbol
+  (is (= (gql/conform-document!
+          '((query
+             continents
+             [($after String)]
+             (continents
+              [(after $after)]
+              (edges (node id))))))
+         (gql/conform-document!
+          `((query
+             continents
+             [($after String)]
+             (continents
+              [(after $after)]
+              (edges (node id)))))))))
+
 (deftest test-list-type-nullable
   (is (= '[:list-type [[:named-type Int]]]
          (s/conform :grafeo/type '[Int]))))
