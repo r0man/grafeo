@@ -423,6 +423,15 @@
   '((extend-type Story
       (isHiddenLocally Boolean))))
 
+(defexample extend-query-type
+  "extend type Query {
+     findDog(complex: ComplexInput): Dog
+     booleanList(booleanListArg: [Boolean!]): Boolean
+   }"
+  '((extend-type Query
+      (findDog [(complex ComplexInput)] Dog)
+      (booleanList [(booleanListArg [Boolean!])] Boolean))))
+
 ;; Operation name
 
 (defexample operation-name

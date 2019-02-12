@@ -47,6 +47,48 @@
               :alumbra/metadata {:column 0 :row 0}}]}]
           :alumbra/metadata {:column 0 :row 0}})))
 
+(deftest test-extend-query-type
+  (is (= (parse-form (:form examples/extend-query-type))
+         {:alumbra/metadata {:column 0 :row 0}
+          :alumbra/type-extensions
+          [{:alumbra/metadata {:column 0 :row 0}
+            :alumbra/type-name "Query"
+            :alumbra/field-definitions
+            [{:alumbra/field-name "findDog"
+              :alumbra/metadata {:column 0 :row 0}
+              :alumbra/argument-definitions
+              [{:alumbra/argument-name "complex"
+                :alumbra/argument-type
+                {:alumbra/metadata {:column 0 :row 0}
+                 :alumbra/non-null? false
+                 :alumbra/type-class :named-type
+                 :alumbra/type-name "ComplexInput"}
+                :alumbra/metadata {:column 0 :row 0}}]
+              :alumbra/type
+              {:alumbra/metadata {:column 0 :row 0}
+               :alumbra/non-null? false
+               :alumbra/type-class :named-type
+               :alumbra/type-name "Dog"}}
+             {:alumbra/field-name "booleanList"
+              :alumbra/metadata {:column 0 :row 0}
+              :alumbra/argument-definitions
+              [{:alumbra/argument-name "booleanListArg"
+                :alumbra/argument-type
+                {:alumbra/element-type
+                 {:alumbra/metadata {:column 0 :row 0}
+                  :alumbra/non-null? true
+                  :alumbra/type-class :named-type
+                  :alumbra/type-name "Boolean"}
+                 :alumbra/metadata {:column 0 :row 0}
+                 :alumbra/non-null? false
+                 :alumbra/type-class :list-type}
+                :alumbra/metadata {:column 0 :row 0}}]
+              :alumbra/type
+              {:alumbra/metadata {:column 0 :row 0}
+               :alumbra/non-null? false
+               :alumbra/type-class :named-type
+               :alumbra/type-name "Boolean"}}]}]})))
+
 (deftest test-input-object-type-extension
   (is (= (parse-form (:form examples/input-object-type-extension))
          {:alumbra/metadata {:column 0 :row 0}
@@ -67,7 +109,7 @@
          {:alumbra/metadata {:column 0 :row 0}
           :alumbra/interface-extensions
           [{:alumbra/type-name "NamedEntity"
-            :alumbra/metadata {:column 0, :row 0}
+            :alumbra/metadata {:column 0 :row 0}
             :alumbra/field-definitions
             [{:alumbra/field-name "nickname"
               :alumbra/metadata {:column 0 :row 0}
