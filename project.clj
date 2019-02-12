@@ -9,7 +9,7 @@
                  [org.clojure/clojure "1.10.0"]
                  [r0man/alumbra.js "0.1.0"]
                  [r0man/alumbra.printer "0.1.1"]]
-  :plugins [[jonase/eastwood "0.3.4"]
+  :plugins [[jonase/eastwood "0.3.5"]
             [lein-cljsbuild "1.1.7"]
             [lein-doo "0.1.11"]]
   :aliases
@@ -45,7 +45,7 @@
                    [org.clojure/test.check "0.9.0"]
                    [r0man/alumbra.spec "0.1.11"]]}
    :provided
-   {:dependencies [[org.clojure/clojurescript "1.10.439"]]}
+   {:dependencies [[org.clojure/clojurescript "1.10.516"]]}
    :repl
-   {:dependencies [[cider/piggieback "0.3.10"]]
+   {:dependencies [[cider/piggieback "0.4.0"]]
     :nrepl-middleware [cider.piggieback/wrap-cljs-repl]}})
