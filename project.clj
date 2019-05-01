@@ -5,7 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :deploy-repositories [["releases" :clojars]]
   :dependencies [[cheshire "5.8.1"]
-                 [clj-http "3.9.1"]
+                 [clj-http "3.10.0"]
                  [org.clojure/clojure "1.10.0"]
                  [r0man/alumbra.js "0.1.0"]
                  [r0man/alumbra.printer "0.1.1"]]
@@ -40,12 +40,12 @@
                    [alumbra/generators "0.2.2"]
                    [alumbra/parser "0.1.7"]
                    [com.gfredericks/test.chuck "0.2.9"]
-                   [criterium "0.4.4"]
+                   [criterium "0.4.5"]
                    [expound "0.7.2"]
                    [org.clojure/test.check "0.9.0"]
                    [r0man/alumbra.spec "0.1.11"]]}
    :provided
-   {:dependencies [[org.clojure/clojurescript "1.10.516"]]}
+   {:dependencies [[org.clojure/clojurescript "1.10.520"]]}
    :repl
    {:dependencies [[cider/piggieback "0.4.0"]]
     :nrepl-middleware [cider.piggieback/wrap-cljs-repl]}})
