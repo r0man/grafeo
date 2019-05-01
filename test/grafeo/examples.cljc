@@ -423,6 +423,36 @@
   '((extend-type Story
       (isHiddenLocally Boolean))))
 
+(defexample extend-query-type
+  "extend type Query {
+     findDog(complex: ComplexInput): Dog
+     booleanList(booleanListArg: [Boolean!]): Boolean
+   }"
+  '((extend-type Query
+      (findDog [(complex ComplexInput)] Dog)
+      (booleanList [(booleanListArg [Boolean!])] Boolean))))
+
+(defexample extend-multiple-types
+  "extend type Query {
+     isLoggedIn: Boolean!
+     cartItems: [Launch]!
+   }
+
+   extend type Launch {
+     isInCart: Boolean!
+   }
+
+   extend type Mutation {
+     addOrRemoveFromCart(id: ID!): [Launch]
+   }"
+  '((extend-type Query
+      (isLoggedIn Boolean!)
+      (cartItems (Launch)))
+    (extend-type Launch
+      (isInCart Boolean!))
+    (extend-type Mutation
+      (addOrRemoveFromCart [(id ID!)] [Launch]))))
+
 ;; Operation name
 
 (defexample operation-name
