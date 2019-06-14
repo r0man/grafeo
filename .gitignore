@@ -17,3 +17,4 @@ pom.xml.asc
 /ALUMBRA.graphql
 /GRAFEO.edn
 /GRAFEO.graphql
+/.eastwood

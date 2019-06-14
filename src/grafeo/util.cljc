@@ -1,8 +1,21 @@
 (ns grafeo.util
-  (:require [clojure.pprint :as pprint]
+  (:require [#?(:clj  cheshire.core :cljs goog.json) :as json]
+            [clojure.pprint :as pprint]
             [clojure.spec.alpha :as s]
             [clojure.string :as str]
             [clojure.walk :as walk]))
+
+(defn encode-json
+  "Encode `obj` as JSON."
+  [obj]
+  #?(:clj (json/encode obj)
+     :cljs (json/serialize (clj->js obj))))
+
+(defn decode-json
+  "Decode `s` as JSON."
+  [s]
+  #?(:clj (json/decode s keyword)
+     :cljs (js->clj (JSON.parse s) :keywordize-keys true)))
 
 (defn simple-class-name
   "Given an symbol of a class, returns it's simple name. Leaves the

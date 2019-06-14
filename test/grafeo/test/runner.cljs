@@ -4,6 +4,7 @@
             [grafeo.core-test]
             [grafeo.examples-test]
             [grafeo.js-test]
+            [grafeo.multipart-test]
             [grafeo.ring-test]
             [grafeo.specs-test]
             [grafeo.transform-test]))
@@ -14,6 +15,7 @@
  'grafeo.core-test
  'grafeo.examples-test
  'grafeo.js-test
+ 'grafeo.multipart-test
  'grafeo.ring-test
  'grafeo.specs-test
  'grafeo.transform-test)
