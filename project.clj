@@ -6,7 +6,7 @@
   :deploy-repositories [["releases" :clojars]]
   :dependencies [[cheshire "5.8.1"]
                  [clj-http "3.10.0"]
-                 [org.clojure/clojure "1.10.0"]
+                 [org.clojure/clojure "1.10.1"]
                  [r0man/alumbra.js "0.1.0"]
                  [r0man/alumbra.printer "0.1.1"]]
   :plugins [[jonase/eastwood "0.3.5"]
@@ -47,5 +47,5 @@
    :provided
    {:dependencies [[org.clojure/clojurescript "1.10.520"]]}
    :repl
-   {:dependencies [[cider/piggieback "0.4.0"]]
+   {:dependencies [[cider/piggieback "0.4.1"]]
     :nrepl-middleware [cider.piggieback/wrap-cljs-repl]}})
