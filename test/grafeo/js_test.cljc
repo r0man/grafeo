@@ -11,7 +11,7 @@
     [value (gen/recursive-gen
             gen/container-type
             (gen/one-of
-             [gen/int
+             [gen/small-integer
               gen/large-integer
               (gen/double* {:infinite? false :NaN? false})
               gen/char-ascii
